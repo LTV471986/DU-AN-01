@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang đăng nhập</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <h1>Đăng nhập</h1>
+    <p>Username:</p>
+    <input type="text" id="txtUsername" />
+    <p>Mật khẩu:</p>
+    <input type="password" id="txtPassword" />
+    <br />
+    <br />
+    <button id="btnLogin">Đăng nhập</button>
+
+    <p class="error hidden">Đăng nhập thất bại. Vui lòng kiểm tra lại</p>
+
+    <!-- Đường dẫn tương đối(relative path) 
+        + ./ đi đến thư mục chứa file hiện hành
+        + / đi đến thư mực root (gốc) 
+
+        Đường dẫn tuyệt đối (absolute path):
+        www.google.com.vn => trực tiếp link tới trang.
+    -->
+    <script src="./js/main.js"></script>
+  </body>
+</html>
+
+<!-- Bài tập 
+ 1- Làm sao để người dùng chưa đăng nhập sẽ không truy 
+ cập được trang dashboard dù vẫn biết link truy cập ?
+ 
+ 2- Tạo trang đăng ký tài khoản (register.html). Trang này sẽ có
+  + 1 tiêu đề
+  + 1 ô nhập email
+  + 1 ô nhập username
+  + 1 ô nhập re-type password (nhập lại mật khẩu)
+  + 1 nút đăng ký
+  
+  Bắt sự kiện click cho nút đăng ký và kiểm tra dữ liệu đầu vào 
+  phải hợp lệ:
+  + email, username, password, re-type password là bắt buộc nhập.
+  + email phải đúng định dạng (@abc.com)
+  + password phải là mật khẩu mạnh
+    - tối thiểu 6 ký tự
+    + ít nhất ký tự hoa
+    + ít nhất ký tự thường
+    + ít nhất 1 số  0 - 9
+    + ít nhất 1 ký tự đặc biệt
+    
+  Phải kiểm tra email và username đã có trong danh sách tài khoản 
+  người dùng hay chưa?
+  
+  Thông tin người dùng có kiểu dữ liệu là object và lưu vào 1 mảng
+  là danh sách tài khoản người dùng.
+  
+
+  3- Nâng cấp trang đăng nhập để khi người dùng nhập đúng username
+  và password đã có trong danh sách tài khoản thì cho phép đăng nhập
+  vào dashboard ?
+
+  -->
