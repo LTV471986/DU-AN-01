@@ -2,8 +2,17 @@ let btnLogout = document.getElementById("btnLogout");
 btnLogout.addEventListener("click", function () {
   sessionStorage.removeItem("isLoggedIn");
   //   alert("La lên nè");
+  localStorage.setItem("isLogin", false);
+  alert("Dang xuat thanh cong")
   window.location.href = "../index.html";
 });
+
+  document.addEventListener("DOMContentLoaded", funtion(){
+    let isLogin = localStorage.getItem("isLogin");
+    if(isLogin === "false") {
+      window.location.href = "../index.html";
+    }
+  })
 
 // Khi truyền 1 cái hàm như là 1 đối số của hàm khác thì hàm đó được
 // gọi là call back function (Gọi lại hàm)
