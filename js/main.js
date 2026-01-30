@@ -27,6 +27,26 @@
  *
  *
  */
+//Get cái gì thì return về cái đó.
+let getUserList = function () {
+  //Lấy được danh sách tài khoản nằm ở trên local storage
+  //(phía trình duyệt của người dùng
+  //Nếu không lấy được userList (tức nó bằng null) thì gán
+  //mảng rỗng cho biến userList
+  let userList = JSON.parse(localStorage.getItem("userList")) || [];
+  return userList;
+};
+
+let isEmailExisted = function (email) {
+  let userList = getUserList();
+  let length = userList.length; //độ dài của mảng
+  for (let i = 0; i < length; i++) {
+    if (userList[i].email === email) {
+      return true;
+    }
+  }
+  return false;
+};
 
 //document.getel bấm Enter
 let btnLogin = document.getElementById("btnLogin");
@@ -35,13 +55,39 @@ let btnLogin = document.getElementById("btnLogin");
 btnLogin.addEventListener("click", function () {
   // Viết code ở đây
   //   alert("La lên nè");
-  // Lấy username và password người dùng cái đã
-  let txtUsername = document.getElementById("txtUsername");
+  // Lấy email và password người dùng cái đã
+  let txtEmail = document.getElementById("txtEmail");
   //   console.log("txtUsername");
 
   let txtPassword = document.getElementById("txtPassword");
   //   console.log("txtPassword");
 
+  let userList = getUserList();
+  let isLoginSuccess = false; //bien co (flag)
+  for (let i = 0; i < userList.length; i++) {
+    let user = userList[i];
+    let email = user.email;
+    let password = user.password;
+
+    if (
+      txtEmail.value.trim.toLowerCase() === email &&
+      txtPassword.value === password
+    ) {
+      //Đăng nhập thành công
+      isLoginSuccess = true;
+    }
+  }
+  if (isLoginSuccess) {
+    //Tạo ra 1 biến isLogin và set giá trị là true và lưu xuống
+    // localStorage
+    localStorage.setItem("isLogin", true);
+    alert("Dang nhap thanh cong");
+    window.location.href = "admin/dashboard.html";
+  } else {
+    //Alert("Dang nhap that bai. Vui long kiem tra lai. ")
+    let errorElements = document.getElementsByClassName("error");
+    errorElements[0].classList.remove("hidden");
+  }
   // Kiểm tra username và mật khẩu:
   if (
     txtUsername.value.trim().toLowerCase() === "admin" &&
@@ -61,4 +107,9 @@ btnLogin.addEventListener("click", function () {
     //remove: xóa class của phần tử html.
     errorElements[0].classList.remove("hidden");
   }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  let isLogin = Boolean(localStorage.getItem("isLogin"));
+  if (isLogin === "true") window.location.href = "./admin/dashboard.html";
 });

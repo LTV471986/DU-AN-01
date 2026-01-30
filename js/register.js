@@ -8,7 +8,7 @@ let getUserList = function () {
   //(phía trình duyệt của người dùng
   //Nếu không lấy được userList (tức nó bằng null) thì gán
   //mảng rỗng cho biến userList
-  let userList = localStorage.getItem("userList") || [];
+  let userList = JSON.parse(localStorage.getItem("userList")) || [];
   return userList;
 };
 
@@ -83,21 +83,40 @@ let registerEventHandler = function () {
   //Userlist: danh sách người dùng
   if (isEmailExisted(txtEmail.value.trim()) === true) {
     alert("Email này đã được sử dụng. Vui lòng điền email khác!");
-  }
-
-  let txtpassWord = document.getElementById("txtPassword");
-  let txtreTypePassword = document.getElementById("txtreTypePassword");
-  if (txtpassWord.value !== txtreTypePassword.value) {
-    alert("Mật khẩu không trùng khớp. Vui lòng kiểm tra lại");
   } else {
-    let isPassStrength = checkPassStrength(txtpassWord.value);
-    if (isPassStrength === false) {
-      alert(`Mật khẩu phải có:
+    let txtpassWord = document.getElementById("txtPassword");
+    let txtreTypePassword = document.getElementById("txtreTypePassword");
+    if (txtpassWord.value !== txtreTypePassword.value) {
+      alert("Mật khẩu không trùng khớp. Vui lòng kiểm tra lại");
+    } else {
+      let isPassStrength = checkPassStrength(txtpassWord.value);
+      if (isPassStrength === false) {
+        alert(`Mật khẩu phải có:
       1. Ký tự viết hoa
       2. Ký tự viết thường
       3. Số 0-9
       4. Ký tự đặc biệt
-      Vui lòng nhập lại mật khẩu`);
+      Vui lòng nhập lại mật khẩu!`);
+      } else {
+        //Lưu thông tin đăng ký của người dùng vào 1 cái array(mảng) và lưu xuống local
+        //storage (lưu tạm trên máy tính người dùng)
+        let userList = getUserList();
+        let user = {
+          email: txtEmail.value.trim(),
+          password: txtpassWord.value,
+        }; //object (đối tượng)
+
+        // console.log(`email là ${user.email}`);
+        // console.log(`password là ${user.password}`);
+
+        //Thêm đối tượng user vào vị trí cuối mảng userList
+        userList.push(user);
+
+        localStorage.setItem("userList", JSON.stringify(userList));
+        // console.log(JSON.parse(localStorage.getItem("userList")));
+        alert("Đăng ký tài khoản thành công.");
+        window.location.href = "./index.html";
+      }
     }
   }
 };
